@@ -96,6 +96,20 @@
   max-width: 34rem;
   font-size: 1.8rem;
   line-height: 2rem;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.35s ease-out; 
+
+  .active .swiper-slide-active &,
+  .active .swiper-slide-next & {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.5s
+  }
+  
+  .active .swiper-slide-next & {
+    transition-delay: 1s;
+  }
 
   @media (min-width: $stop-scaling) {
     margin-top: 36px;
