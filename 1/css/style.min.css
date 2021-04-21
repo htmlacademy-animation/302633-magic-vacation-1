@@ -1330,7 +1330,7 @@ img {
   border-radius: 3rem;
   outline: none;
   flex-grow: 0;
-  transition: flex-grow 0.4s ease; }
+  transition: flex-grow 0.4s ease, opacity 0.4s ease; }
   .active .form__field {
     opacity: 1;
     flex-grow: 1; }
@@ -1341,68 +1341,63 @@ img {
       margin-right: 30px;
       padding: 0 56px;
       height: 60px;
-      width: calc(100% - 210px);
+      width: 0;
+      max-width: calc(100% - 210px);
       font-size: 24px;
       border-radius: 30px; } }
   @media (orientation: portrait) {
     .form__field {
       margin-right: 1rem;
       padding: 0 2.5rem;
-      width: calc(100% - 5rem);
       height: 4rem;
       font-size: 1.6rem; } }
-  @media (max-width: 1024px) and (orientation: landscape) {
-    .form__field {
-      width: calc(100% - 9rem); } }
   @media (max-width: 768px) and (orientation: landscape) {
     .form__field {
       margin-right: 1rem;
       padding: 0 2.5rem;
-      width: calc(100% - 5rem);
       height: 4rem;
       font-size: 1.6rem; } }
 
-@media (orientation: portrait) {
-  .form__button {
-    position: relative;
-    flex: none;
-    padding: 0;
-    width: 4rem;
-    height: 4rem;
-    font-size: 0; } }
-
-@media (max-width: 1024px) and (orientation: landscape) {
-  .form__button {
-    position: relative;
-    flex: none;
-    padding: 0;
-    width: 6rem;
-    height: 6rem;
-    font-size: 0; } }
-
-@media (max-width: 768px) and (orientation: landscape) {
-  .form__button {
-    width: 4rem;
-    height: 4rem; } }
-
-.form__button svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-  width: 1.6rem;
-  height: 1.8rem; }
-  @media (min-width: 2000px) {
-    .form__button svg {
-      width: 16px;
-      height: 18px; } }
+.form__button {
+  width: 18rem; }
   @media (orientation: portrait) {
-    .form__button svg {
-      display: block; } }
+    .form__button {
+      position: relative;
+      flex: none;
+      padding: 0;
+      width: 4rem;
+      height: 4rem;
+      font-size: 0; } }
   @media (max-width: 1024px) and (orientation: landscape) {
-    .form__button svg {
-      display: block; } }
+    .form__button {
+      position: relative;
+      flex: none;
+      padding: 0;
+      width: 6rem;
+      height: 6rem;
+      font-size: 0; } }
+  @media (max-width: 768px) and (orientation: landscape) {
+    .form__button {
+      width: 4rem;
+      height: 4rem; } }
+  .form__button svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 1.6rem;
+    height: 1.8rem; }
+    @media (min-width: 2000px) {
+      .form__button svg {
+        width: 16px;
+        height: 18px; } }
+    @media (orientation: portrait) {
+      .form__button svg {
+        display: block; } }
+    @media (max-width: 1024px) and (orientation: landscape) {
+      .form__button svg {
+        display: block; } }
 
 .form--result .form__field {
   width: calc(100% - 31rem); }
@@ -1604,7 +1599,7 @@ img {
   .active .intro__message {
     opacity: 1;
     transform: translateY(0);
-    transition: all 0.5s ease-in-out 1.5s; }
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; }
   @media (min-width: 2000px) {
     .intro__message {
       width: 509px;
@@ -2969,7 +2964,7 @@ img {
   line-height: 2rem;
   opacity: 0;
   transform: translateX(20px);
-  transition: all 0.35s ease-out; }
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out; }
   .active .swiper-slide-active .slider__item-text,
   .active .swiper-slide-next .slider__item-text {
     opacity: 1;
@@ -3152,7 +3147,7 @@ img {
   height: 4rem;
   color: #5f458c;
   border-radius: 50%;
-  transition: all 0.35s ease-in-out; }
+  transition: opacity 0.35s ease-in-out; }
   .social-block__toggler:focus {
     outline: none; }
   @media (max-width: 1024px) and (orientation: portrait) {
@@ -3173,7 +3168,7 @@ img {
     background-color: #ffffff;
     border: 2px solid #ffffff;
     z-index: -1;
-    transition: all 0.35s ease-in-out; }
+    transition: transform 0.35s ease-in-out; }
   .social-block__toggler svg {
     position: absolute;
     top: 50%;
@@ -3187,8 +3182,7 @@ img {
     color: #a67ee5; }
     .social-block__toggler:hover::before,
     .social-block--active .social-block__toggler::before {
-      width: 112.5%;
-      height: 112.5%; }
+      transform: translate(-50%, -50%) scale(1.125); }
   .social-block__toggler:focus {
     color: #a67ee5;
     outline: none; }
@@ -3198,7 +3192,8 @@ img {
       opacity: 1;
       pointer-events: auto; }
       .social-block__toggler:focus + .social-block__list .social-block__link {
-        opacity: 1; }
+        opacity: 1;
+        transition: opacity 0.35s ease-in-out, color 0.35s ease-in-out; }
   .social-block__toggler:active, .social-block__toggler:active:focus {
     color: #ffffff; }
     .social-block__toggler:active::before, .social-block__toggler:active:focus::before {
@@ -3280,7 +3275,6 @@ img {
   color: #ffffff;
   border: 2px solid transparent;
   border-radius: 50%;
-  transition: opacity 0.35s ease-in-out, color 0.35s ease-in-out;
   opacity: 0; }
   @media (min-width: 2000px) {
     .social-block__link {
@@ -3318,7 +3312,7 @@ img {
         width: 8px;
         height: 17px; } }
   .social-block__link--insta {
-    transition-delay: 100ms; }
+    transition-delay: 50ms; }
     .social-block__link--insta svg {
       width: 1.5rem;
       height: 1.5rem; }
@@ -3327,7 +3321,7 @@ img {
           width: 15px;
           height: 15px; } }
   .social-block__link--vk {
-    transition-delay: 200ms; }
+    transition-delay: 100ms; }
     .social-block__link--vk svg {
       width: 1.7rem;
       height: 1rem; }
