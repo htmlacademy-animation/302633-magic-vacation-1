@@ -360,3 +360,21 @@
 .screen--rules {
   background-color: $c-dark;
 }
+
+.overlap-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: $c-dark; 
+  z-index: 2;
+  transform: translateY(100%);
+  transition: transform 0.4s ease-in;
+  visibility: hidden;
+
+  &.active {
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
