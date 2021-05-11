@@ -52,6 +52,122 @@
     object-fit: cover;
     object-position: center;
   }
+
+  .image-flamingo {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    left: calc(50% - 285px);
+    top: calc(50% - 10px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, 150%) rotate(-30deg);
+    transform-origin: 50% 60%;
+
+    @media (max-width: $mobile) {
+      width: 150px;
+      left: calc(50% - 118px);
+      top: calc(50% + 30px);
+    }
+  }
+
+  .image-suitcase {
+    position: absolute;
+    width: 450px;
+    height: auto;
+    left: calc(50% - 275px);
+    top: calc(50% - 125px);
+
+    @media (max-width: $mobile) {
+      width: 200px;
+      top: calc(50% - 15px);
+      left: auto;
+    }
+  }
+
+  .image-green {
+    position: absolute;
+    width: 450px;
+    height: auto;
+    left: calc(50% - 21px);
+    top: calc(50% + 35px);
+    transform-origin: left center;
+
+    @media (max-width: $mobile) {
+      width: 150px;
+      left: calc(50% + 25px);
+      top: calc(50% + 60px);
+    }
+  }
+
+  .image-leaf1 {
+    position: absolute;
+    width: 335px;
+    height: auto;
+    left: calc(50% - 10px);
+    top: calc(50% - 115px);
+    transform-origin: left center;
+
+    @media (max-width: $mobile) {
+      width: 150px;
+      left: calc(50% - -8px);
+      top: calc(50% - 10px);
+    }
+  }
+
+  .image-leaf2 {
+    position: absolute;
+    width: 335px;
+    height: auto;
+    left: calc(50% - 418px);
+    top: calc(50% - 15px);
+    transform-origin: right center;
+
+    @media (max-width: $mobile) {
+      width: 150px;
+      left: calc(50% - 161px);
+      top: calc(50% + 34px);
+    }
+  }
+
+  .screen--show & {
+    .image-flamingo {
+      animation-name: show-flamingo, rotate-flamingo;
+      animation-duration: 0.5s, 2.5s;
+      animation-timing-function: ease-in, linear;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1, infinite;
+      animation-delay: 0.5s, 1s;
+    }
+
+    .image-suitcase {
+      animation-name: show-suitcase;
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.25, 0.1, 0.79, 1.5);
+      animation-fill-mode: both;
+      animation-delay: 0.5s;
+    }
+
+    .image-leaf1, .image-leaf2, .image-green {
+      animation-duration: 1.8s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-delay: 0.8s;
+    }
+
+    .image-leaf1 {
+      animation-name: leaf1;
+    }
+    
+    .image-leaf2 {
+      animation-name: leaf2;
+      animation-duration: 1.8s;
+    }
+
+    .image-green {
+      animation-name: leaf-green;
+    }
+  }
 }
 
 .result__title {
@@ -266,5 +382,133 @@
     @media (max-width: $mobile) and (orientation: landscape) {
       width: 45rem;
     }
+  }
+}
+
+
+@keyframes show-flamingo {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-100px, 150%) rotate(-30deg);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+@keyframes rotate-flamingo {
+  0% {
+    transform: translate(-3px, -6px) rotate(3deg);
+  }
+  50% {
+    transform: translate(3px,6px) rotate(-3deg);
+  }
+  100% {
+    transform: translate(-3px, -6px) rotate(3deg);
+  }
+}
+
+@keyframes show-suitcase {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, 150%) scale(0);
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes leaf1 {
+  from {
+    opacity: 0;
+    transform: translateY(-100px) rotate(-15deg)
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(0) rotate(15deg)
+  }
+
+  40% {
+    transform: rotate(-5deg)
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  80% {
+    transform: rotate(-2deg);
+  }
+
+  to {
+    opacity: 1;
+    transfrorm: rotate(0deg)
+  }
+}
+
+@keyframes leaf2 {
+  from {
+    opacity: 0;
+    transform: translateY(-100px) rotate(30deg)
+  }
+
+  10% {
+    opacity: 1;
+    transform: rotate(-15deg)
+  }
+
+  40% {
+    transform: rotate(10deg)
+  }
+
+  60% {
+    transform: rotate(-5deg);
+  }
+
+  80% {
+    transform: rotate(2deg);
+  }
+
+  to {
+    opacity: 1;
+    transfrorm: translateY(0) rotate(0deg)
+  }
+}
+
+@keyframes leaf-green {
+  from {
+    opacity: 0;
+    transform: rotate(-20deg)
+  }
+
+  10% {
+    opacity: 1;
+    transform: rotate(15deg)
+  }
+
+  40% {
+    transform: rotate(-10deg)
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  80% {
+    transform: rotate(-2deg);
+  }
+
+  to {
+    opacity: 1;
+    transfrorm: rotate(0deg)
   }
 }

@@ -9,6 +9,7 @@ import form from './modules/form.js';
 import social from './modules/social.js';
 import FullPageScroll from './modules/full-page-scroll';
 import pageLoading from './modules/page-loading';
+import TitleAnimationSwitcher from './modules/title-animation-switcher';
 
 // init modules
 mobileHeight();
@@ -20,6 +21,9 @@ result();
 form();
 social();
 pageLoading();
+
+const titleAnimationSwitcher = new TitleAnimationSwitcher();
+titleAnimationSwitcher.init();
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
