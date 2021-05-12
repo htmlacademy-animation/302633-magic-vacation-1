@@ -169,6 +169,28 @@
   width: 4rem;
   height: 4rem;
   color: $c-dark;
+  transform-origin: center;
+  visibility: hidden;
+
+  .active & {
+    visibility: visible;
+
+    &--prev,
+    &--next {
+      animation-duration: 0.5s;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-delay: 1.4s;
+    }
+
+    &--prev {
+      animation-name: show-prev-button;
+    }
+
+    &--next {
+      animation-name: show-next-button;
+    }
+  }
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -247,6 +269,14 @@
   font-weight: 400;
   font-size: 2.4rem;
   line-height: 4rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease 1.4s;
+
+  .active & {
+    visibility: visible;
+    opacity: 1;
+  }
 
   @media (min-width: $stop-scaling) {
     bottom: 28px;
@@ -288,5 +318,29 @@
       height: 0.4rem;
       background-color: $c-light;
     }
+  }
+}
+
+@keyframes show-prev-button {
+  from {
+    opacity: 0;
+    transform: translate(-50px, 0) rotate(-180deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes show-next-button {
+  from {
+    opacity: 0;
+    transform: translate(50px, 0) rotate(180deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
   }
 }
