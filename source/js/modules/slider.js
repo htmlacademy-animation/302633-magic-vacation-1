@@ -5,6 +5,21 @@ export default () => {
   let sliderContainer = document.getElementById(`story`);
   sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
 
+  const ColorThemes = [
+    `dark-purple`,
+    `light-blue`,
+    `dark-blue`,
+    `default`
+  ];
+
+  const changeTheme = () => {
+    document.body.dataset.colorTheme = ColorThemes[Math.floor(storySlider.activeIndex / 2)];
+  };
+
+  const removeTheme = () => {
+    document.body.removeAttribute(`data-color-theme`);
+  };
+
   const setSlider = function () {
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
       storySlider = new Swiper(`.js-slider`, {
@@ -26,6 +41,7 @@ export default () => {
             } else if (storySlider.activeIndex === 6 || storySlider.activeIndex === 7) {
               sliderContainer.style.backgroundImage = `url("img/slide4.jpg"), linear-gradient(180deg, rgba(45, 39, 63, 0) 0%, #2F2A42 16.85%)`;
             }
+            changeTheme();
           },
           resize: () => {
             storySlider.update();
@@ -60,6 +76,7 @@ export default () => {
             } else if (storySlider.activeIndex === 6) {
               sliderContainer.style.backgroundImage = `url("img/slide4.jpg")`;
             }
+            changeTheme();
           },
           resize: () => {
             storySlider.update();
@@ -70,6 +87,14 @@ export default () => {
       });
     }
   };
+
+  document.body.addEventListener(`screenChanged`, (e) => {
+    if (storySlider && e.detail.screenName === `story`) {
+      changeTheme();
+    } else {
+      removeTheme();
+    }
+  });
 
   window.addEventListener(`resize`, function () {
     if (storySlider) {
