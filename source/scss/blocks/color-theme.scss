@@ -1,0 +1,177 @@
+[data-color-theme="dark-blue"] {
+  .page-header__menu {
+    a:hover,
+    a:focus {
+      color: $c-blue;
+
+      &::after {
+        background-color: $c-blue;
+      }
+    }
+  }
+
+  .social-block__toggler {
+    color: $c-light-blue;
+
+    &:hover,
+    .social-block--active & {
+      color: $c-blue;
+    }
+
+    &:focus {
+      color: $c-blue;
+      outline: none;
+
+      &::before {
+        border-color: $c-blue;
+      }
+    }
+  }
+
+  .social-block__link:hover {
+    color: $c-blue;
+  }
+
+  .slider__control {
+    color: $c-light-blue;
+
+    &:hover {
+      color: $c-blue;
+    }
+
+    &:focus {
+      color: $c-blue;
+
+      &::before {
+        border-color: $c-blue;
+      }
+    }
+
+    &:active,
+    &:active:focus {
+      &::before {
+        background-color: $c-blue;
+        border-color: $c-blue;
+      }
+    }
+  }
+}
+
+[data-color-theme="light-blue"] {
+  .page-header__menu {
+    a:hover,
+    a:focus {
+      color: $c-light-blue;
+
+      &::after {
+        background-color: $c-light-blue;
+      }
+    }
+  }
+
+  .social-block__toggler {
+    color: $c-blue;
+
+    &:hover,
+    .social-block--active & {
+      color: $c-light-blue;
+    }
+
+    &:focus {
+      color: $c-light-blue;
+      outline: none;
+
+      &::before {
+        border-color: $c-light-blue;
+      }
+    }
+  }
+
+  .social-block__link:hover {
+    color: $c-light-blue;
+  }
+
+  .slider__control {
+    color: $c-blue;
+
+    &:hover {
+      color: $c-light-blue;
+    }
+
+    &:focus {
+      color: $c-light-blue;
+
+      &::before {
+        border-color: $c-light-blue;
+      }
+    }
+
+    &:active,
+    &:active:focus {
+      &::before {
+        background-color: $c-light-blue;
+        border-color: $c-light-blue;
+      }
+    }
+  }
+}
+
+[data-color-theme="dark-purple"] {
+  .page-header__menu {
+    a:hover,
+    a:focus {
+      color: $c-dark;
+
+      &::after {
+        background-color: $c-dark;
+      }
+    }
+  }
+
+  .social-block__toggler {
+    color: $c-purple;
+
+    &:hover,
+    .social-block--active & {
+      color: $c-dark;
+    }
+
+    &:focus {
+      color: $c-dark;
+      outline: none;
+
+      &::before {
+        border-color: $c-dark;
+      }
+    }
+  }
+
+  .social-block__link:hover {
+    color: $c-dark;
+  }
+
+  .slider__control {
+    color: $c-purple;
+
+    &:hover {
+      color: $c-dark;
+    }
+
+    &:focus {
+      color: $c-dark;
+
+      &::before {
+        border-color: $c-dark;
+      }
+    }
+
+    &:active,
+    &:active:focus {
+      &::before {
+        background-color: $c-dark;
+        border-color: $c-dark;
+      }
+    }
+  }
+}
+

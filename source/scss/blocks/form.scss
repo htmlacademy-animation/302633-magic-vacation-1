@@ -177,22 +177,17 @@
 
 .form--result {
   .form__field {
-    // width: calc(100% - 31rem);
-
     @media (min-width: $stop-scaling) {
       max-width: calc(100% - 310px);
     }
 
     @media (orientation: portrait) {
-      // width: calc(100% - 5rem);
     }
 
     @media (max-width: $tablet) and (orientation: landscape) {
-      // width: calc(100% - 9rem);
     }
 
     @media (max-width: $mobile) and (orientation: landscape) {
-      // width: calc(100% - 5rem);
     }
   }
 }
