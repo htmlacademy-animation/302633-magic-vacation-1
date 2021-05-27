@@ -169,7 +169,8 @@
     }
 
     .prizes__icon {
-      width: 18.8rem;
+      width: 26.8rem;
+      margin-left: -10rem;
 
       @media (min-width: $stop-scaling) {
         width: 188px;

@@ -58,11 +58,6 @@ export default class FullPageScroll {
       }, 100);
     };
 
-    if (this.activeScreen === PRIZE_SCREEN_INDEX) {
-      const firstPrize = document.querySelector(`#first-prize`);
-      firstPrize.src = `img/primary-avard.svg`;
-    }
-
     if (this.prevActiveScreen === STORY_SCREEN_INDEX && this.activeScreen === PRIZE_SCREEN_INDEX) {
       this.overlapBg.classList.add(`active`);
       setTimeout(changeActiveScreen, 500);
