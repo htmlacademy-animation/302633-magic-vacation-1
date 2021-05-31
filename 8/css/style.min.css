@@ -2479,28 +2479,46 @@ img {
 }
 @media (min-width: 2000px) {
   .prizes__item--cases .prizes__icon {
-    width: 188px;
+    width: 268px;
+    margin-left: -7rem;
   }
 }
 @media (max-width: 1024px) and (orientation: portrait) {
   .prizes__item--cases .prizes__icon {
-    margin-right: 1.3rem;
-    width: 10.211rem;
+    margin-left: -4rem;
+    margin-right: 6rem;
+    width: 10rem;
   }
 }
 @media (max-width: 1024px) and (orientation: landscape) {
   .prizes__item--cases .prizes__icon {
-    width: 9.5rem;
+    width: 13rem;
+    margin-left: -4rem;
+  }
+}
+@media (max-width: 768px) and (orientation: portrait) {
+  .prizes__item--cases .prizes__icon {
+    width: 9.4rem;
+    margin-right: 4rem;
+    margin-left: -2rem;
   }
 }
 @media (max-width: 768px) and (orientation: landscape) {
   .prizes__item--cases .prizes__icon {
-    width: 7rem;
+    width: 10rem;
+    margin-right: 4rem;
+    margin-left: -2rem;
   }
 }
 @media (max-width: 1024px) and (orientation: portrait) {
   .prizes__item--codes {
     padding-left: 0.8rem;
+  }
+}
+@media (max-width: 768px) and (orientation: landscape) {
+  .prizes__item--codes {
+    padding-left: 0.8rem;
+    margin-right: 1rem;
   }
 }
 .prizes__item--codes .prizes__icon {
@@ -2571,6 +2589,7 @@ img {
 @media (max-width: 768px) and (orientation: landscape) {
   .prizes__desc {
     font-size: 0.8rem;
+    width: 7rem;
   }
 }
 .prizes__desc b {
