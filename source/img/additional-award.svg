@@ -174,7 +174,7 @@
           repeatCount="indefinite"
           calcMode="discrete"
           dur="0.1s"
-          begin="calibriAppearance.begin + 0.5"
+          begin="init.end"
         />
       </path>
     </g>
