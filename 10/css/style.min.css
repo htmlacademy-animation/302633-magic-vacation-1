@@ -3114,7 +3114,7 @@ img {
   }
 }
 @keyframes show-suitcase {
-  0% {
+  from {
     transform: translate(0, 150%) scale(0.1);
     opacity: 0;
   }
