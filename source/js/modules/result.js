@@ -1,5 +1,4 @@
 const ANIMATION_OFFSET = 0.05;
-const ANIMATION_BEGIN = 1.5;
 
 const STROKE_PARAMS = [
   {name: `attributeName`, value: `stroke-dasharray`},
@@ -23,9 +22,8 @@ const SCALE_PARAMS = [
   {name: `type`, value: `scale`},
   {name: `values`, value: `1.15 1.15; 1 1`},
   {name: `keyTimes`, value: `0; 1`},
-  {name: `dur`, value: `1s`},
+  {name: `dur`, value: `0.5s`},
   {name: `fill`, value: `freeze`},
-  {name: `begin`, value: `1s`},
   {name: `additive`, value: `sum`}
 ];
 
@@ -46,7 +44,7 @@ export default () => {
         setTimeout(() => {
           targetEl[0].classList.add(`screen--show`);
           initAnimation(targetEl[0]);
-        }, 10);
+        }, 0);
         targetEl[0].classList.remove(`screen--hidden`);
       });
     }
@@ -77,7 +75,16 @@ const createSvgAnimationEl = (tag, attrs) => {
 const playVictoryAnimation = (animatedEl) => {
   const pathEls = animatedEl.querySelectorAll(`path`);
   animatedEl.setAttribute(`transform`, `scale(1.15 1.15)`);
-  const animateTransform = createSvgAnimationEl(`animateTransform`, SCALE_PARAMS);
+
+  const id = animatedEl.id.replace(/-/g, `_`);
+  const initialAnimationId = `${id}_scale`;
+  const animateTransform = createSvgAnimationEl(`animateTransform`, [
+    ...SCALE_PARAMS,
+    {name: `id`, value: `${initialAnimationId}`},
+    {name: `begin`, value: `indefinite`},
+  ]);
+
+  animatedEl.appendChild(animateTransform);
 
   pathEls.forEach((path) => {
     const totalLength = path.getTotalLength();
@@ -88,16 +95,18 @@ const playVictoryAnimation = (animatedEl) => {
       ...STROKE_PARAMS,
       {name: `from`, value: `0, ${length}`},
       {name: `to`, value: `${length}, 0`},
-      {name: `begin`, value: `${ANIMATION_BEGIN}s`}
+      {name: `begin`, value: `${initialAnimationId}.begin`}
     ]);
     path.appendChild(animate);
   });
 
-  animatedEl.appendChild(animateTransform);
+  document.querySelector(`#${initialAnimationId}`).beginElement();
 };
 
 const playFailAnimation = (animatedEl) => {
   const pathEls = animatedEl.querySelectorAll(`path`);
+  const id = animatedEl.id.replace(/-/g, `_`);
+  const initialAnimationId = `${id}_translate_0`;
 
   pathEls.forEach((path, i) => {
     const totalLength = path.getTotalLength();
@@ -105,24 +114,25 @@ const playFailAnimation = (animatedEl) => {
     path.setAttribute(`stroke-dasharray`, `0, ${length}`);
     path.setAttribute(`transform`, `translate(0, -99)`);
 
-    const begin = ANIMATION_BEGIN + (ANIMATION_OFFSET * i);
+    const offset = ANIMATION_OFFSET * i;
 
     const animate = createSvgAnimationEl(`animate`, [
       ...STROKE_PARAMS,
       {name: `from`, value: `0, ${length}`},
       {name: `to`, value: `${length}, 0`},
-      {name: `begin`, value: `${begin}s`}
+      {name: `begin`, value: `${initialAnimationId}.begin + ${offset}s`}
     ]);
 
     const animateTransform = createSvgAnimationEl(`animateTransform`, [
       ...TRANSLATE_PARAMS,
-      {name: `begin`, value: `${begin}s`},
+      {name: `id`, value: `${id}_translate_${i}`},
+      {name: `begin`, value: i === 0 ? `indefinite` : `${initialAnimationId}.begin + ${offset}s`},
     ]);
 
     path.appendChild(animate);
     path.appendChild(animateTransform);
-
   });
+  document.querySelector(`#${initialAnimationId}`).beginElement();
 };
 
 const initAnimation = (targetEl) => {

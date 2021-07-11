@@ -143,7 +143,7 @@
     .image-suitcase {
       animation-name: show-suitcase;
       animation-duration: 0.5s;
-      animation-timing-function: cubic-bezier(0.25, 0.1, 0.79, 1.5);
+      animation-timing-function: cubic-bezier(0.37,0.2,0.6,1.2);
       animation-fill-mode: both;
       animation-delay: 0.5s;
     }
@@ -374,7 +374,6 @@
     .screen--show & {
       animation-name: show-win-text;
       animation-duration: 0.5s;
-      animation-delay: 0.5s;
       animation-fill-mode: both;
       animation-timing-function: ease;  
     }
@@ -438,16 +437,14 @@
 }
 
 @keyframes show-suitcase {
-  from {
+  0% {
+    transform: translate(0, 150%) scale(0.1);
     opacity: 0;
-    visibility: hidden;
-    transform: translate(0, 150%) scale(0);
   }
 
   to {
-    visibility: visible;
-    opacity: 1;
     transform: translate(0, 0) scale(1);
+    opacity: 1;
   }
 }
 
