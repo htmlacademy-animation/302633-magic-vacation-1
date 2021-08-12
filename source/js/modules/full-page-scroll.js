@@ -1,7 +1,11 @@
 import throttle from 'lodash/throttle';
+import Timer from './timer';
 
 const STORY_SCREEN_INDEX = 1;
 const PRIZE_SCREEN_INDEX = 2;
+const GAME_SCREEN_INDEX = 4;
+
+const GAME_DURATION = 5 * 60 * 1000;
 
 export default class FullPageScroll {
   constructor() {
@@ -10,11 +14,14 @@ export default class FullPageScroll {
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
     this.overlapBg = document.querySelector(`.overlap-bg`);
+    this.counterFields = document.querySelectorAll(`.game__counter span`);
 
     this.activeScreen = 0;
     this.prevActiveScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+
+    this.gameTimer = new Timer(this.counterFields, GAME_DURATION);
   }
 
   init() {
@@ -55,6 +62,12 @@ export default class FullPageScroll {
       this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
       setTimeout(() => {
         this.screenElements[this.activeScreen].classList.add(`active`);
+
+        if (this.activeScreen === GAME_SCREEN_INDEX) {
+          this.gameTimer.start();
+        } else {
+          this.gameTimer.stop();
+        }
       }, 100);
     };
 
@@ -63,6 +76,10 @@ export default class FullPageScroll {
       setTimeout(changeActiveScreen, 500);
     } else {
       changeActiveScreen();
+    }
+
+    if (this.activeScreen === GAME_SCREEN_INDEX) {
+      this.gameTimer.start();
     }
   }
 
