@@ -106,6 +106,12 @@
 
 .prizes__item {
   margin-left: 7.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+  &.active {
+    opacity: 1;
+  }
+
 
   @media (min-width: $stop-scaling) {
     margin-left: 75px;
@@ -203,6 +209,9 @@
   }
 
   &--codes {
+    .prizes__desc b {
+      width: 3ch;
+    }
     @media (max-width: $tablet) and (orientation: portrait) {
       padding-left: 0.8rem;
     }
@@ -252,6 +261,11 @@
   margin: 5.6rem 0 0 0;
   font-size: 1.8rem;
   line-height: 1.1;
+  position: relative;
+  
+  b {
+    width: 1ch;
+  }
 
   @media (min-width: $stop-scaling) {
     margin-top: 56px;

@@ -1,11 +1,41 @@
 import throttle from 'lodash/throttle';
 import Timer from './timer';
+import PrizeCounter from './prize-counter';
 
 const STORY_SCREEN_INDEX = 1;
 const PRIZE_SCREEN_INDEX = 2;
 const GAME_SCREEN_INDEX = 4;
 
 const GAME_DURATION = 5 * 60 * 1000;
+
+const prizeAnimationOptions = {
+  primary: {
+    counter: {
+      start: 0,
+      end: 3,
+      step: 1
+    },
+    svgFile: `primary-award.svg`
+  },
+  secondary: {
+    counter: {
+      start: 1,
+      end: 7,
+      step: 1,
+    },
+    timeout: 1000,
+    svgFile: `secondary-award.svg`
+  },
+  additional: {
+    counter: {
+      start: 11,
+      end: 900,
+      step: 90,
+    },
+    timeout: 2000,
+    svgFile: `additional-award.svg`
+  }
+};
 
 export default class FullPageScroll {
   constructor() {
@@ -16,12 +46,16 @@ export default class FullPageScroll {
     this.overlapBg = document.querySelector(`.overlap-bg`);
     this.counterFields = document.querySelectorAll(`.game__counter span`);
 
+    // prizes
+    this.prizes = document.querySelectorAll(`.prizes__item`);
+
     this.activeScreen = 0;
     this.prevActiveScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
 
     this.gameTimer = new Timer(this.counterFields, GAME_DURATION);
+    this.prizeAnimationsStarted = false;
   }
 
   init() {
@@ -68,6 +102,13 @@ export default class FullPageScroll {
         } else {
           this.gameTimer.stop();
         }
+
+        if (this.activeScreen === PRIZE_SCREEN_INDEX && !this.prizeAnimationsStarted) {
+          this.prizeAnimationsStarted = true;
+          this.startPrizeAnimation(this.prizes[0], prizeAnimationOptions.primary);
+          this.startPrizeAnimation(this.prizes[1], prizeAnimationOptions.secondary);
+          this.startPrizeAnimation(this.prizes[2], prizeAnimationOptions.additional);
+        }
       }, 100);
     };
 
@@ -76,10 +117,6 @@ export default class FullPageScroll {
       setTimeout(changeActiveScreen, 500);
     } else {
       changeActiveScreen();
-    }
-
-    if (this.activeScreen === GAME_SCREEN_INDEX) {
-      this.gameTimer.start();
     }
   }
 
@@ -110,5 +147,19 @@ export default class FullPageScroll {
     } else {
       this.activeScreen = Math.max(0, --this.activeScreen);
     }
+  }
+
+  startPrizeAnimation(prizeEl, animationOptions) {
+    const {timeout, counter, svgFile} = animationOptions;
+    const img = prizeEl.querySelector(`img`);
+    const prizeAmount = prizeEl.querySelector(`.prizes__desc b`);
+    img.src = ``;
+
+    setTimeout(() => {
+      prizeEl.classList.add(`active`);
+      const prizeCounter = new PrizeCounter(prizeAmount, counter);
+      prizeCounter.start();
+      img.src = `img/${svgFile}`;
+    }, timeout);
   }
 }
