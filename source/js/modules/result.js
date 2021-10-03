@@ -1,3 +1,5 @@
+import PrimaryAwardScene from './canvas-animation/primary-award-scene';
+
 const ANIMATION_OFFSET = 0.05;
 
 const STROKE_PARAMS = [
@@ -138,10 +140,18 @@ const playFailAnimation = (animatedEl) => {
 const initAnimation = (targetEl) => {
   const targetElementId = targetEl.getAttribute(`id`);
   const animatedEl = targetEl.querySelector(`.result__slogan`);
+  let resultScene;
 
-  if (targetElementId !== `result3`) {
-    playVictoryAnimation(animatedEl);
-  } else {
-    playFailAnimation(animatedEl);
+  switch (targetElementId) {
+    case `result`:
+      playVictoryAnimation(animatedEl);
+      resultScene = new PrimaryAwardScene();
+      resultScene.start();
+      break;
+    case `result3`:
+      playFailAnimation(animatedEl);
+      break;
+    default:
+      playVictoryAnimation(animatedEl);
   }
 };
