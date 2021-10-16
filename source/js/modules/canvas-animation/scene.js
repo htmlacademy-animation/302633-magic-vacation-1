@@ -7,8 +7,6 @@ class Scene {
     this.objects = {};
     this.objectsSettings = options.objects;
     this.locals = {};
-    this.isLoaded = false;
-    this.isWaitingForImages = false;
     this.isStarted = false;
     this.animations = [];
     this.afterInit = () => { };
@@ -46,13 +44,7 @@ class Scene {
         image.addEventListener(`load`, () => {
           loadingCounter++;
           if (loadingCounter === Object.keys(imagesUrls).length) {
-            this.isLoaded = true;
-
-            if (this.isWaitingForImages) {
-              this.start();
-            } else {
               this.drawScene();
-            }
           }
         });
 
@@ -60,28 +52,6 @@ class Scene {
         image.src = imagesUrls[name];
       }
     }
-  }
-
-  start() {
-    if (!this.isLoaded) {
-      this.isWaitingForImages = true;
-      return;
-    }
-
-    if (this.isStarted) {
-      this.stop();
-      this.initObjects();
-    }
-
-    if (this.animations.length === 0) {
-      this.initAnimations();
-    }
-
-    this.animations.forEach((animation) => {
-      animation.start();
-    });
-
-    this.isStarted = true;
   }
 
   stop() {
@@ -130,7 +100,6 @@ class Scene {
     if (transforms && (transforms.scaleX === 0 || transforms.scaleY === 0)) {
       return;
     }
-
     let width = this.size * (size / 100);
     let height = this.size * (size / 100) * image.height / image.width;
 
@@ -146,7 +115,8 @@ class Scene {
 
     if (transforms) {
       if (transforms.translateX) {
-        x += this.size * (transforms.tarnslateX / 100);
+        x += this.size * (transforms.translateX / 100);
+        console.log(this.size, (transforms.tarnslateX))
       }
 
       if (transforms.translateY) {

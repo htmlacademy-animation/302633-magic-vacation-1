@@ -34,6 +34,10 @@
   align-items: center;
   z-index: -1;
 
+  canvas {
+    overflow: hidden;
+  }
+
   @media (orientation: portrait) {
     left: -1rem;
     right: -1rem;

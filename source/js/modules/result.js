@@ -1,4 +1,5 @@
 import PrimaryAwardScene from './canvas-animation/primary-award-scene';
+import LooseScene from './canvas-animation/loose-scene';
 
 const ANIMATION_OFFSET = 0.05;
 
@@ -150,6 +151,8 @@ const initAnimation = (targetEl) => {
       break;
     case `result3`:
       playFailAnimation(animatedEl);
+      resultScene = new LooseScene();
+      resultScene.start();
       break;
     default:
       playVictoryAnimation(animatedEl);
