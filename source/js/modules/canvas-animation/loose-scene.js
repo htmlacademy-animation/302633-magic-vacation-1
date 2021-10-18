@@ -4,14 +4,14 @@ import Animation from './animation';
 import { transform } from 'lodash';
 
 const IMAGE_URLS = Object.freeze({
-  crocodile: `img/module-4/lose-images/crocodile.png`,
-  drop: `img/module-4/lose-images/drop.png`,
-  flamingo: `img/module-4/lose-images/flamingo.png`,
   key: `img/module-4/lose-images/key.png`,
+  crocodile: `img/module-4/lose-images/crocodile.png`,
+  flamingo: `img/module-4/lose-images/flamingo.png`,
   leaf: `img/module-4/lose-images/leaf.png`,
   saturn: `img/module-4/lose-images/saturn.png`,
   snowflake: `img/module-4/lose-images/snowflake.png`,
-  watermelon: `img/module-4/lose-images/watermelon.png`
+  watermelon: `img/module-4/lose-images/watermelon.png`,
+  drop: `img/module-4/lose-images/drop.png`
 });
 
 const OBJECTS = Object.freeze({
@@ -24,6 +24,18 @@ const OBJECTS = Object.freeze({
     transforms: {
       scaleX: 0.8,
       scaleY: 0.8
+    }
+  },
+  crocodile: {
+    imageId: `crocodile`,
+    x: 51,
+    y: 57,
+    size: 57,
+    opacity: 0,
+    transforms: {
+      translateX: 23,
+      translateY: -12,
+      rotate: 15
     }
   },
   flamingo: {
@@ -96,18 +108,6 @@ const OBJECTS = Object.freeze({
       rotate: 50
     }
   },
-  crocodile: {
-    imageId: `crocodile`,
-    x: 51,
-    y: 57,
-    size: 57,
-    opacity: 1,
-    transforms: {
-      translateX: 23,
-      translateY: -12,
-      rotate: 15
-    }
-  },
   drop: {
     imageId: `drop`,
     x: 50,
@@ -130,6 +130,10 @@ class LooseScene extends Scene {
       objects: OBJECTS,
       imagesUrls: IMAGE_URLS
     });
+
+    this.afterInit = () => {
+      this.objects.flamingo.before = this.drawMask.bind(this);
+    };
     this.animations = [];
     this.dropAnimations = [];
     this.initObjects();
@@ -147,12 +151,12 @@ class LooseScene extends Scene {
       fps: 60
     }));
     this.initKeyAnimations();
+    this.initCrocodileAnimation();
     this.initFlamingoAnimations();
     this.initWatermelonAnimation();
     this.initLeafAnimation();
     this.initSnowflakeAnimation();
     this.initSaturnAnimation();
-    this.initCrocodileAnimation();
 
     setTimeout(() => {
       this.initDropAnimation();
@@ -326,7 +330,8 @@ class LooseScene extends Scene {
       func: (progress) => {
         const progressReversed = 1 - progress;
         const { transforms } = this.objects.crocodile;
-
+        
+        this.objects.crocodile.opacity = 1;
         transforms.translateX = 23 * progressReversed;
         transforms.translateY = -12 * progressReversed;
         transforms.rotate = 15 * Math.sin(progressReversed * 2);
@@ -385,9 +390,58 @@ class LooseScene extends Scene {
     });
 
     setTimeout(() => {
-      console.log('drop')
       this.initDropAnimation();
     }, 2500);
+  }
+
+  drawMask() {
+    const s = this.size / 100;
+    console.log(s);
+    
+    this.ctx.save();
+    this.ctx.globalAlpha = 1;
+    this.ctx.fillStyle = `#5f458c`;
+    
+    this.ctx.beginPath();
+
+    this.ctx.arc(
+      50 * s,
+      43.5 * s,
+      9.1 * s,
+      (Math.PI/180)* 270,
+      (Math.PI/180)* 48
+    );
+
+    this.ctx.moveTo(
+      (50 + 6.1)* s,
+      50.3 * s
+    );
+
+    this.ctx.lineTo(
+      (50 + 9.1) * s,
+      65.5 * s
+    );
+    this.ctx.lineTo(
+      (50 + 9.1) * s,
+      80 * s
+    );
+    this.ctx.lineTo(
+      100 * s,
+      80 * s
+    );
+    this.ctx.lineTo(
+      100 * s,
+      34.45 * s
+    );
+    this.ctx.lineTo(
+      50 * s,
+      34.45 * s
+    );
+
+    this.ctx.fill();
+    this.ctx.restore();
+
+
   }
 }
 

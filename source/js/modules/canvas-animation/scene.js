@@ -105,6 +105,7 @@ class Scene {
 
     x = this.size * (x / 100) - width / 2;
     y = this.size * (y / 100) - height / 2;
+    console.log(height, object.imageId);
 
     const isContextTransforming = opacity ||
       (transforms && (transforms.rotate || transforms.scaleX || transforms.scaleY));
@@ -116,7 +117,6 @@ class Scene {
     if (transforms) {
       if (transforms.translateX) {
         x += this.size * (transforms.translateX / 100);
-        console.log(this.size, (transforms.tarnslateX))
       }
 
       if (transforms.translateY) {
