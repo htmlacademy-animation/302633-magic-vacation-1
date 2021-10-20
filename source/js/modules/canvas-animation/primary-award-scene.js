@@ -108,13 +108,13 @@ class PrimaryAwardScene extends Scene {
       imagesUrls: IMAGE_URLS,
     });
 
-
     this.afterInit = () => {
       this.objects.plane.before = this.drawBlob.bind(this);
     };
 
     this.initObjects();
     this.initLocals();
+    this.initAnimations();
   }
 
   initLocals() {
@@ -138,13 +138,16 @@ class PrimaryAwardScene extends Scene {
     this.initTreesAnimations();
     this.initSeaCalfAnimations();
     this.initSnowflakesAnimations();
+
+    this.animations.forEach((animation) => {
+      animation.start();
+    });
   }
 
   initPlaneAnimations() {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-
         this.objects.plane.transforms.translateX = -40 * progressReversed;
         this.objects.plane.transforms.translateY =
           5 * Math.sin(Math.PI * progressReversed) - 15 * progressReversed;
@@ -154,7 +157,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1200,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
   }
 
@@ -173,7 +176,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1200,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
   }
 
@@ -185,7 +188,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1200,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
@@ -195,7 +198,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1500,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
   }
 
@@ -222,7 +225,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 100,
       delay: 1000,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
   }
 
@@ -250,7 +253,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1500,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
@@ -259,7 +262,7 @@ class PrimaryAwardScene extends Scene {
       },
       duration: 500,
       delay: 1900,
-      easing: easing.easeInQuad
+      easing: easing.easeOutExpo
     }));
   }
 

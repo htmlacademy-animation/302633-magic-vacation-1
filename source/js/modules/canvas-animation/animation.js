@@ -26,7 +26,6 @@ class Animation {
 
   start(options) {
     this.stop();
-
     this.timeoutId = setTimeout(() => {
       this.startTime = performance.now();
       this.interval = 1000 / this.options.fps;
