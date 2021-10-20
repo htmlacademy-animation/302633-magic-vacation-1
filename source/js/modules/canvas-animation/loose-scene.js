@@ -1,7 +1,6 @@
 import Scene from './scene';
 import easing from './easing';
 import Animation from './animation';
-import { transform } from 'lodash';
 
 const IMAGE_URLS = Object.freeze({
   key: `img/module-4/lose-images/key.png`,
@@ -12,6 +11,34 @@ const IMAGE_URLS = Object.freeze({
   snowflake: `img/module-4/lose-images/snowflake.png`,
   watermelon: `img/module-4/lose-images/watermelon.png`,
   drop: `img/module-4/lose-images/drop.png`
+});
+
+const LOCALS = Object.freeze({
+  mask: {
+    centerX: 50,
+    centerY: 43.5,
+    radius: 9.1,
+    endX: 87,
+    endY: 53,
+    startAngle: 270,
+    endAngle: 48,
+    opacity: 1,
+    color: `#5f458c`,
+    path: {
+      x1: 56.1,
+      y1: 50.3,
+      x2: 59.1,
+      y2: 65.5,
+      x3: 59.1,
+      y3: 80,
+      x4: 100,
+      y4: 80,
+      x5: 100,
+      y5: 34.45,
+      x6: 50,
+      y6: 34.45
+    }
+  }
 });
 
 const OBJECTS = Object.freeze({
@@ -28,7 +55,7 @@ const OBJECTS = Object.freeze({
   },
   crocodile: {
     imageId: `crocodile`,
-    x: 51,
+    x: 52,
     y: 57,
     size: 57,
     opacity: 0,
@@ -119,7 +146,6 @@ const OBJECTS = Object.freeze({
       scaleY: 0
     }
   }
-
 });
 
 class LooseScene extends Scene {
@@ -128,6 +154,7 @@ class LooseScene extends Scene {
     super({
       canvas,
       objects: OBJECTS,
+      locals: LOCALS,
       imagesUrls: IMAGE_URLS
     });
 
@@ -138,8 +165,15 @@ class LooseScene extends Scene {
     this.dropAnimations = [];
     this.initObjects();
     this.initAnimations();
+    this.initLocals();
 
-    this.dropTimeOut = null;
+    this.animationDelay = 0;
+  }
+
+  initLocals() {
+    this.locals = {
+      ...LOCALS
+    };
   }
 
   initAnimations() {
@@ -160,8 +194,8 @@ class LooseScene extends Scene {
 
     setTimeout(() => {
       this.initDropAnimation();
-    }, 1800);
-    
+    }, 800);
+
     this.animations.forEach((animation) => {
       animation.start();
     });
@@ -170,13 +204,13 @@ class LooseScene extends Scene {
   initKeyAnimations() {
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.key;
+        const {transforms} = this.objects.key;
         this.objects.key.opacity = progress;
         transforms.scaleX = progress > transforms.scaleX ? progress : transforms.scaleX;
         transforms.scaleY = progress > transforms.scaleY ? progress : transforms.scaleY;
       },
       duration: 200,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
   }
@@ -185,7 +219,7 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.flamingo;
+        const {transforms} = this.objects.flamingo;
 
         transforms.scaleX = progress;
         transforms.scaleY = progress;
@@ -194,18 +228,18 @@ class LooseScene extends Scene {
         transforms.rotate = 60 * Math.sin(progressReversed * 2);
       },
       duration: 617,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.flamingo;
+        const {transforms} = this.objects.flamingo;
 
         transforms.translateY = 70 * progress;
       },
       duration: 583,
-      delay: 1617,
+      delay: 617,
       easing: easing.easeOutCubic
     }));
   }
@@ -214,7 +248,7 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.watermelon;
+        const {transforms} = this.objects.watermelon;
 
         transforms.scaleX = progress;
         transforms.scaleY = progress;
@@ -223,18 +257,18 @@ class LooseScene extends Scene {
         transforms.rotate = 60 * Math.sin(progressReversed * 2);
       },
       duration: 533,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.watermelon;
+        const {transforms} = this.objects.watermelon;
 
-        transforms.translateY =  55 * progress;
+        transforms.translateY = 55 * progress;
       },
       duration: 200,
-      delay: 1533,
+      delay: 533,
       easing: easing.easeOutCubic
     }));
   }
@@ -243,7 +277,7 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.leaf;
+        const {transforms} = this.objects.leaf;
 
         transforms.scaleX = progress;
         transforms.scaleY = progress;
@@ -252,18 +286,18 @@ class LooseScene extends Scene {
         transforms.rotate = -40 * Math.sin(progressReversed * 2);
       },
       duration: 533,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.leaf;
+        const {transforms} = this.objects.leaf;
 
         transforms.translateY = 78 * progress;
       },
       duration: 583,
-      delay: 1533,
+      delay: 533,
       easing: easing.easeOutCubic
     }));
   }
@@ -272,7 +306,7 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.snowflake;
+        const {transforms} = this.objects.snowflake;
 
         transforms.scaleX = progress;
         transforms.scaleY = progress;
@@ -281,18 +315,18 @@ class LooseScene extends Scene {
         transforms.rotate = -60 * Math.sin(progressReversed * 2);
       },
       duration: 683,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
 
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.snowflake;
+        const {transforms} = this.objects.snowflake;
 
         transforms.translateY = 62 * progress;
       },
       duration: 583,
-      delay: 1683,
+      delay: 683,
       easing: easing.easeOutCubic
     }));
   }
@@ -301,7 +335,7 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.saturn;
+        const {transforms} = this.objects.saturn;
 
         transforms.scaleX = progress;
         transforms.scaleY = progress;
@@ -310,17 +344,17 @@ class LooseScene extends Scene {
         transforms.rotate = 50 * Math.sin(progressReversed * 2);
       },
       duration: 617,
-      delay: 1000,
+      delay: 0,
       easing: easing.easeOutExpo
     }));
     this.animations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.saturn;
+        const {transforms} = this.objects.saturn;
 
         transforms.translateY = 55 * progress;
       },
       duration: 300,
-      delay: 1617,
+      delay: 617,
       easing: easing.easeOutCubic
     }));
   }
@@ -329,15 +363,15 @@ class LooseScene extends Scene {
     this.animations.push(new Animation({
       func: (progress) => {
         const progressReversed = 1 - progress;
-        const { transforms } = this.objects.crocodile;
-        
+        const {transforms} = this.objects.crocodile;
+
         this.objects.crocodile.opacity = 1;
-        transforms.translateX = 23 * progressReversed;
+        transforms.translateX = 20 * progressReversed;
         transforms.translateY = -12 * progressReversed;
         transforms.rotate = 15 * Math.sin(progressReversed * 2);
       },
       duration: 600,
-      delay: 1300,
+      delay: 300,
       easing: easing.easeLinear
     }));
   }
@@ -346,7 +380,7 @@ class LooseScene extends Scene {
     this.dropAnimations = [];
     this.dropAnimations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.drop;
+        const {transforms} = this.objects.drop;
         this.objects.drop.opacity = 1;
         transforms.scaleX = 1 * progress;
         transforms.scaleY = 1 * progress;
@@ -357,7 +391,7 @@ class LooseScene extends Scene {
     }));
     this.dropAnimations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.drop;
+        const {transforms} = this.objects.drop;
         transforms.translateY = 7 * progress;
       },
       duration: 500,
@@ -365,7 +399,7 @@ class LooseScene extends Scene {
     }));
     this.dropAnimations.push(new Animation({
       func: (progress) => {
-        const { transforms } = this.objects.drop;
+        const {transforms} = this.objects.drop;
         const progressReversed = 1 - progress;
         transforms.scaleX = (0.5 * progressReversed) + 0.5;
         transforms.scaleY = (0.5 * progressReversed) + 0.5;
@@ -378,7 +412,7 @@ class LooseScene extends Scene {
 
     this.dropAnimations.push(new Animation({
       func: () => {
-        const { transforms } = this.objects.drop;
+        const {transforms} = this.objects.drop;
         transforms.translateY = 0;
       },
       duration: 100,
@@ -395,53 +429,52 @@ class LooseScene extends Scene {
   }
 
   drawMask() {
+    const b = this.locals.mask;
+    const path = b.path;
     const s = this.size / 100;
-    console.log(s);
-    
+
     this.ctx.save();
-    this.ctx.globalAlpha = 1;
-    this.ctx.fillStyle = `#5f458c`;
-    
+    this.ctx.globalAlpha = b.opacity;
+    this.ctx.fillStyle = b.color;
+
     this.ctx.beginPath();
 
     this.ctx.arc(
-      50 * s,
-      43.5 * s,
-      9.1 * s,
-      (Math.PI/180)* 270,
-      (Math.PI/180)* 48
+        b.centerX * s,
+        b.centerY * s,
+        b.radius * s,
+        (Math.PI / 180) * b.startAngle,
+        (Math.PI / 180) * b.endAngle,
     );
 
     this.ctx.moveTo(
-      (50 + 6.1)* s,
-      50.3 * s
+        path.x1 * s,
+        path.y1 * s
     );
 
     this.ctx.lineTo(
-      (50 + 9.1) * s,
-      65.5 * s
+        path.x2 * s,
+        path.y2 * s
     );
     this.ctx.lineTo(
-      (50 + 9.1) * s,
-      80 * s
+        path.x3 * s,
+        path.y3 * s
     );
     this.ctx.lineTo(
-      100 * s,
-      80 * s
+        path.x4 * s,
+        path.y4 * s
     );
     this.ctx.lineTo(
-      100 * s,
-      34.45 * s
+        path.x5 * s,
+        path.y5 * s
     );
     this.ctx.lineTo(
-      50 * s,
-      34.45 * s
+        path.x6 * s,
+        path.y6 * s
     );
 
     this.ctx.fill();
     this.ctx.restore();
-
-
   }
 }
 

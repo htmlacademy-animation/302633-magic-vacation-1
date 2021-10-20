@@ -44,7 +44,7 @@ class Scene {
         image.addEventListener(`load`, () => {
           loadingCounter++;
           if (loadingCounter === Object.keys(imagesUrls).length) {
-              this.drawScene();
+            this.drawScene();
           }
         });
 
@@ -105,7 +105,6 @@ class Scene {
 
     x = this.size * (x / 100) - width / 2;
     y = this.size * (y / 100) - height / 2;
-    console.log(height, object.imageId);
 
     const isContextTransforming = opacity ||
       (transforms && (transforms.rotate || transforms.scaleX || transforms.scaleY));

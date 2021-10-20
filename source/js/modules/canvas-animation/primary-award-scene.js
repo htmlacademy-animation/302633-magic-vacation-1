@@ -108,7 +108,6 @@ class PrimaryAwardScene extends Scene {
       imagesUrls: IMAGE_URLS,
     });
 
-
     this.afterInit = () => {
       this.objects.plane.before = this.drawBlob.bind(this);
     };
