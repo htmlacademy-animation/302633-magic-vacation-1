@@ -10,6 +10,7 @@ import social from './modules/social.js';
 import FullPageScroll from './modules/full-page-scroll';
 import pageLoading from './modules/page-loading';
 import TitleAnimationSwitcher from './modules/title-animation-switcher';
+import initIntro from './modules/3d/intro';
 
 // init modules
 mobileHeight();
@@ -24,6 +25,6 @@ pageLoading();
 
 const titleAnimationSwitcher = new TitleAnimationSwitcher();
 titleAnimationSwitcher.init();
-
+initIntro();
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();

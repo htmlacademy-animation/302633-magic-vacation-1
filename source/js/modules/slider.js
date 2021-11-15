@@ -1,9 +1,11 @@
 import Swiper from "swiper";
+import Story from '../modules/3d/story';
 
 export default () => {
+  const story = new Story(`story-canvas`,
+      [`./img/scene-1.png`, `./img/scene-2.png`, `./img/scene-3.png`, `./img/scene-4.png`]
+  );
   let storySlider;
-  let sliderContainer = document.getElementById(`story`);
-  sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
 
   const ColorThemes = [
     `dark-purple`,
@@ -33,13 +35,13 @@ export default () => {
         on: {
           slideChange: () => {
             if (storySlider.activeIndex === 0 || storySlider.activeIndex === 1) {
-              sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
+              story.changeScene(0);
             } else if (storySlider.activeIndex === 2 || storySlider.activeIndex === 3) {
-              sliderContainer.style.backgroundImage = `url("img/slide2.jpg"), linear-gradient(180deg, rgba(45, 54, 179, 0) 0%, #2A34B0 16.85%)`;
+              story.changeScene(1);
             } else if (storySlider.activeIndex === 4 || storySlider.activeIndex === 5) {
-              sliderContainer.style.backgroundImage = `url("img/slide3.jpg"), linear-gradient(180deg, rgba(92, 138, 198, 0) 0%, #5183C4 16.85%)`;
+              story.changeScene(2);
             } else if (storySlider.activeIndex === 6 || storySlider.activeIndex === 7) {
-              sliderContainer.style.backgroundImage = `url("img/slide4.jpg"), linear-gradient(180deg, rgba(45, 39, 63, 0) 0%, #2F2A42 16.85%)`;
+              story.changeScene(3);
             }
             changeTheme();
           },
@@ -68,13 +70,13 @@ export default () => {
         on: {
           slideChange: () => {
             if (storySlider.activeIndex === 0) {
-              sliderContainer.style.backgroundImage = `url("img/slide1.jpg")`;
+              story.changeScene(0);
             } else if (storySlider.activeIndex === 2) {
-              sliderContainer.style.backgroundImage = `url("img/slide2.jpg")`;
+              story.changeScene(1);
             } else if (storySlider.activeIndex === 4) {
-              sliderContainer.style.backgroundImage = `url("img/slide3.jpg")`;
+              story.changeScene(2);
             } else if (storySlider.activeIndex === 6) {
-              sliderContainer.style.backgroundImage = `url("img/slide4.jpg")`;
+              story.changeScene(3);
             }
             changeTheme();
           },
@@ -90,6 +92,8 @@ export default () => {
 
   document.body.addEventListener(`screenChanged`, (e) => {
     if (storySlider && e.detail.screenName === `story`) {
+      story.init();
+      story.changeScene(0);
       changeTheme();
     } else {
       removeTheme();
