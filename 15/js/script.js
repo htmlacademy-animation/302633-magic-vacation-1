@@ -60936,7 +60936,7 @@ class Intro extends _abstract_view__WEBPACK_IMPORTED_MODULE_1__["default"] {
 }
 
 const initIntro = () => {
-  const intro = new Intro(`intro-canvas`, `/img/scene-0.png`);
+  const intro = new Intro(`intro-canvas`, `./img/scene-0.png`);
   document.body.addEventListener(`screenChanged`, (e) => {
     if (e.detail.screenName === `top`) {
       intro.init();
@@ -62987,7 +62987,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (() => {
   const story = new _modules_3d_story__WEBPACK_IMPORTED_MODULE_1__["default"](`story-canvas`,
-      [`/img/scene-1.png`, `/img/scene-2.png`, `/img/scene-3.png`, `/img/scene-4.png`]
+      [`./img/scene-1.png`, `./img/scene-2.png`, `./img/scene-3.png`, `./img/scene-4.png`]
   );
   let storySlider;
 
