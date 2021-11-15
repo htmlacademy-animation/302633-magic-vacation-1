@@ -3,7 +3,7 @@ import Story from '../modules/3d/story';
 
 export default () => {
   const story = new Story(`story-canvas`,
-      [`/img/scene-1.png`, `/img/scene-2.png`, `/img/scene-3.png`, `/img/scene-4.png`]
+      [`./img/scene-1.png`, `./img/scene-2.png`, `./img/scene-3.png`, `./img/scene-4.png`]
   );
   let storySlider;
 

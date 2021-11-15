@@ -29,7 +29,7 @@ class Intro extends AbstractView {
 }
 
 const initIntro = () => {
-  const intro = new Intro(`intro-canvas`, `/img/scene-0.png`);
+  const intro = new Intro(`intro-canvas`, `./img/scene-0.png`);
   document.body.addEventListener(`screenChanged`, (e) => {
     if (e.detail.screenName === `top`) {
       intro.init();
